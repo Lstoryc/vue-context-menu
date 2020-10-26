@@ -20,7 +20,8 @@ export default {
       bodyClickListener: createBodyClickListener(
         (e) => {
           let isOpen = !!this.ctxVisible
-          let outsideClick = isOpen && !this.$el.contains(e.target)
+          let eveTarget = this.getEventTarget(e)
+          let outsideClick = isOpen && !this.$el.contains(eveTarget)
 
           if (outsideClick) {
             if (e.which !== 1) {
@@ -41,7 +42,24 @@ export default {
     }
   },
   methods: {
+    /**
+     * 获取 shadow root 下 event target
+     * @param {*} e 
+     */
+    getEventTarget(e){
+      var rootEle = this.$el.getRootNode();
 
+      let isInsideShadowRoot = false;
+      if (rootEle !== document) {
+        isInsideShadowRoot = true;
+      }
+
+      if(isInsideShadowRoot){
+        const paths = e.composedPath();
+        return paths && paths.length && paths[0];
+      }
+      return e.target;
+    },
     /*
      * this function handles some cross-browser compat issues
      * thanks to https://github.com/callmenick/Custom-Context-Menu
