@@ -1,7 +1,7 @@
 {
   "name": "vue-context-menu",
   "description": "vue context-menu component",
-  "version": "2.0.6-pi.1",
+  "version": "2.0.7-pi.1",
   "author": "Vin Maimone",
   "main": "vue-context-menu.js",
   "engines": {
@@ -20,6 +20,7 @@
     "babel-preset-stage-2": "^6.22.0",
     "babel-runtime": "^6.23.0",
     "browser-env": "^3.0.2",
+    "cross-env": "^7.0.2",
     "css-loader": "^0.28.4",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
@@ -41,8 +42,8 @@
   ],
   "readmeFilename": "README.md",
   "scripts": {
-    "build": "NODE_ENV=production webpack --config webpack.config.js && rimraf docs && mkdirp docs && ncp index.html docs/index.html && ncp vue-context-menu.js docs/vue-context-menu.js",
-    "analysis": "NODE_ENV=production webpack --profile --json --config webpack.config.js > stats.json",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js && rimraf docs && mkdirp docs && ncp index.html docs/index.html && ncp vue-context-menu.js docs/vue-context-menu.js",
+    "analysis": "cross-env NODE_ENV=production webpack --profile --json --config webpack.config.js > stats.json",
     "dev": "webpack-dev-server --config webpack.config.js",
     "test": "tape test/index.js | tap-spec",
     "version": "npm run build && git add .",
